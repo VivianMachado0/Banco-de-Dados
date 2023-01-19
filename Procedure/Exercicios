@@ -4,3 +4,62 @@ SELECT a+b;
 CALL soma(5,5);
 
 
+-- Considerando que foi acrescentado na tabela de Trajetos um campo extensao_km que contém a quilometragem total do trajeto. Escreva:
+
+-- Uma stored function que dada o id do trajeto calcule e retorne sua quilometragem total.
+DELIMITER //
+CREATE FUNCION fn_kmtotal(id INT)
+RETURNS INT
+BEGIN
+ 		SELECT SUM(e.extensão_km) as Km
+		FROM trajeto t
+		INNER JOIN segmentos s ON s.trajetoid=trajetoid
+		INNER JOIN estrada e ON e.idestrada=s.estradaid
+		WHERE t.trajeto = id
+		GROUP BY t.cidade_origem, t.cidade_destino,t.trajetoid;
+END//
+DELIMITER ;
+
+-- Uma stored procedure que calcule e atualize o campo extensao_km da tabela de trajetos, baseando-se na soma da quilometragem das estradas.
+DELIMITER //
+CREATE PROCEDURE atualizar(id int)
+BEGIN
+	SET @totalkm =(SELECT t.trajetoid,sum(e.extensão_km) as km
+	FROM trajeto t
+	INNER JOIN segmento s ON s.trajetoid = trajetoid
+	INNER JOIN estrada e ON e.idestrada = s.estradaid
+	WHERE t.trajetoid);
+	UPDATE trajeto
+	SET extensão_km = @totalKm
+	WHERE t.trajetoid = id;
+END //
+DELIMITER ;
+
+
+-- Uma stored procedure responsável por incluir uma nova associação de uma estrada (segmento) no final de um trajeto, que automaticamente atualize o campo extensao_km do trajeto somando a extensao_km da estrada. A stored procedure considera que a estrada e o trajeto já estão cadastrados.
+DELIMITER //
+CREATE PROCEDURE inclusão()
+BEGIN
+		SELECT t.extensao_km, e.extensao_km
+		FROM Trajeto t
+		INNER JOIN segmento s ON t.trajetoid = s.trajetoid
+		INNER JOIN estradas e ON s.estradaid = e.estradaid
+		UPDATE t.extensão_km
+SET sum(t.extensão_km) = t.extensãokm
+END //
+DELIMITTER ;
+
+-- d) Uma stored procedure responsável por excluir uma associação existente de uma estrada (segmento) do final de um trajeto, que automaticamente atualize o campo extensao_km do trajeto subtraindo aextensao_km da estrada.
+DELIMITER //
+CREATE PROCEDURE inclusão()
+BEGIN
+		SELECT t.extensao_km, e.extensao_km
+		FROM Trajeto t
+		INNER JOIN segmento s ON t.trajetoid = s.trajetoid
+		INNER JOIN estradas e ON s.estradaid = e.estradaid
+		DROP t.extensão_km
+SET sum(t.extensão_km) = t.extensãokm
+END //
+DELIMITTER ;
+
+
