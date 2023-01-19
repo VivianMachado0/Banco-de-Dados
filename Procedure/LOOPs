@@ -89,3 +89,64 @@ BEGIN
 DELIMITER  ;
 
 
+-- Escrever um procedimento que calcule e mostre a média aritmética dos números entre 13 e 73, inclusive.
+
+DELIMITER //
+CREATE PROCEDURE media()
+BEGIN 
+
+	DECLARE min INT Default 13;
+	DECLARE max INT Default 73;
+	DECLARE soma INT Default 13;
+DECLARE aux INT Default 13;
+
+REPEAT 
+	SET aux = aux +1;
+	SET soma = soma+aux;
+UNTIL aux=max
+END REPEAT;
+SELECT soma (max-min+1)
+END//
+DELIMITER ;
+
+
+
+-- Desenvolver um procedimento que faça o somatório de todos os números ímpares que são múltiplos de três e que se encontram no conjunto dos números de 1 até 500
+DELIMITER //
+CREATE PROCEDURE calculo()
+BEGIN
+	DECLARE min INT Default 1;
+	DECLARE max INT Default 500;
+	DECLARE soma INT Default 0;
+	DECLARE impar INT;
+	IF mod(m,2) = 0 THEN
+		SET impar = 0;
+	ELSE 
+		SET impar =1;
+	END IF;
+	IF impar =1 THEN
+		WHILE mod(m,3) = 0 THEN
+			soma = soma +1;
+		END WHILE;
+	SELECT CONCAT(“a soma é”,soma);
+	END IF;
+END //
+DELIMITER ;
+CALL calculo();
+
+
+-- Calcule a série de Fibonacci para um número inteiro não negativo informado pelo usuário. A série de Fibonacci inicia com os números F0 = 0 e F1 = 1, e cada número posterior equivale à soma dos dois números anteriores (Fn = Fn-1 + Fn-2). Por exemplo, caso o usuário informe o número 10, o resultado seria: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34.
+CREATE PROCEDURE fib(num INT)
+BEGIN
+		DECLARE cont default 0;
+		REPEAT 
+			SET num = num +1;
+			SET num = num + num +2;
+			SET cont = cont + 1;
+		UNTIL cont = num;
+		END REPEAT;
+		SELECT num;
+END //
+DELIMITER ;
+
+
