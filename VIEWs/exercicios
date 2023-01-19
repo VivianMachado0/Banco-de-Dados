@@ -1,0 +1,71 @@
+-- Usando uma VIEW, recuperar a lista de títulos de filmes estrelados por atrizes cujo primeiro nome é Penelope.
+CREATE VIEW exe1
+AS SELECT f.title
+FROM actor as a 
+INNER JOIN film_actor as fa ON a.actor_id = fa.actor_id
+INNER JOIN film as f ON f.film_id = fa.film_id
+WHERE a.firt_name = "PENELOPE";
+
+-- Crie uma View que retorna os nomes de clientes e seus endereços.
+create view exe2
+as select c.first_name, a.address,ci.city
+from customer c 
+INNER JOIN address a 
+ON c.address_id = a.address_id
+INNER JOIN city ci 
+On ci.city_id=a.city_id;
+
+SELECT * FROM exe2;
+
+-- Crie uma View que retorne o nome do filme e os atores que atuaram nele.
+CREATE VIEW exe3 
+AS SELECT f.title, a.first_name,a.last_name
+FROM film f 
+INNER JOIN film_actor fa 
+ON f.film_id = fa.film_id
+INNER JOIN actor a
+ ON a.actor_id=fa.actor_id;
+
+SELECT * FROM exe3;
+
+-- Crie uma procedure para cada uma das Views.
+
+
+DELIMITER //
+	CREATE PROCEDURE exe1()
+    BEGIN
+	SELECT f.title
+FROM actor as a 
+INNER JOIN film_actor as fa ON a.actor_id = fa.actor_id
+INNER JOIN film as f ON f.film_id = fa.film_id
+WHERE a.firt_name = "PENELOPE";
+    END //
+DELIMITER ;
+CALL exe2();
+
+DELIMITER //
+	CREATE PROCEDURE exe2()
+    BEGIN
+			select c.first_name, a.address,ci.city
+			from customer c 
+			INNER JOIN address a 
+			ON c.address_id = a.address_id
+			INNER JOIN city ci 
+			On ci.city_id=a.city_id;
+    END //
+DELIMITER ;
+CALL exe2();
+
+DELIMITER //
+	CREATE PROCEDURE exe3()
+    BEGIN
+		 SELECT f.title, a.first_name,a.last_name
+FROM film f 
+INNER JOIN film_actor fa 
+ON f.film_id = fa.film_id
+INNER JOIN actor a
+ ON a.actor_id=fa.actor_id;
+    END //
+DELIMITER ;
+CALL exe3();
+
