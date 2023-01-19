@@ -1,0 +1,29 @@
+-- a) Para que um trajeto seja consistente, a cidade de origem deste trajeto deve ser igual à cidade de origem cadastrada no primeiro segmento do respectivo trajeto.
+-- Escreva uma consulta SQL que mostre a identificação dos trajetos que não estão consistentes conforme este critério.
+
+SELECT t.cidade_origem , e.cidade_origem
+FROM tajeto t 
+INNER JOIN segmento s ON t.trajetoid = s.trajetoid
+INNER JOIN estrada e ON s.estradaid = e.estradaid
+WHERE e.cidade_origem <> t.cidade_origem and s.ordem = 1;
+
+-- b) Outro critério para que um trajeto seja consistente é que a cidade de destino deste trajeto deve ser igual à cidade de destino cadastrada no último segmento do
+-- respectivo trajeto. Escreva uma consulta SQL que mostre a identificação dos trajetos que não estão consistentes conforme este critério.
+
+SELECT t.cidade_destino , e.cidade_destino
+FROM trajeto t
+INNER JOIN segmento s ON  t.trajetoid = s.trajetoid
+INNER JOIN estrada e ON s.estradaid = e.estradaid
+WHERE e.cidade_destino <> t.cidade_origem and s.ordem =1;
+
+-- c) Retorne os trajetos de menor quilometragem entre cada origem/destino diferente. Esta consulta deve apresentar para cada um dos trajetos selecionados: 
+-- cidade origem, cidade destino, menor quilometragem entre elas. A quilometragem de cada trajeto é calculada pela soma da quilometragem de todas as estradas
+-- que compõem o trajeto.
+
+SELECT cidade_origem, cidade_destino,min(Km) FROM (
+SELECT t.trajetoid,t.cidade_origem,t.cidade_destino, sum(e.extensão_km) as km
+FROM trajeto t
+INNER JOIN segmento s ON t.trejetoid = s.trajetoid
+INNER JOIN estrada e ON s.stradaid = e.idestrada
+GROUP BY t.cidade_origem, t.cidade_destino, t.trajetoid) as v
+GROUP BY cidade_origem, cidade_destino;
