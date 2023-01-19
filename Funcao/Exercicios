@@ -1,0 +1,13 @@
+//
+
+-- Criar uma função que retorna o texto “Olá Mundo.”
+CREATE FUNCTION texto( )
+RETURNS VARCHAR (40)
+RETURN ‘Ola Mundo’;
+SELECT texto();
+
+-- Criar uma função que retorna a soma de dois inteiros.
+CREATE FUNCTION soma(a int, b int)
+RETURNS INT
+RETURN a + b;
+SELECT soma (5,9);
