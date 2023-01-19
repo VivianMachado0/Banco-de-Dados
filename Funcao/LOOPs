@@ -1,0 +1,69 @@
+-- Faça uma função que peça um número inteiro positivo e em seguida mostre este número invertido. Não deve-se usar função a reverse().
+
+DELIMITER //
+CREATE FUNCTION inverso (num INT)
+RETURNS INT;
+BEGIN
+	DECLARE invertido INT;
+	SET num = num * -1;
+	RETURN num;
+END //
+DEMILITER;
+
+
+
+
+-- Faça um programa que receba dois números inteiros e gere os números inteiros que estão no intervalo compreendido por eles.
+
+DELIMITER //
+CREATE PROCEDURE invertido(num1 int, num2 int)
+	BEGIN
+		DECLARE i default 0;
+		SET num1 = i;
+		WHILE i<=num2 THEN
+		 	SET i = i+1;
+		END WHILE;
+		WHILE i>= num2 THEN
+			SET i=i-1;
+		END WHILE;
+		SELECT i;
+	END //
+DELIMITER ;
+
+-- Altere o programa anterior para mostrar no final a soma dos números.
+
+
+DELIMITER //
+	CREATE PROCEDURE inteiros (num1 INT, num2 INT)
+BEGIN
+	DECLARE i INT, Default 0;
+	DECLARE soma INT;
+	SET num1=i;
+	WHILE i<num2 THEN
+		SET i=i+1;
+	END WHILE;
+	WHILE i>=num2 THEN
+		SET i=i-1;
+	END WHILE;
+	SET soma = num1+num2;
+	SELECT i;
+	SELECT soma;
+END //
+DELIMITER ;
+
+
+-- Chico tem 1,50 metro e cresce 2 centímetros por ano, enquanto Zé tem 1,10 metro e cresce 3 centímetros por ano. Construa um algoritmo que calcule e imprima quantos anos serão necessários para que Zé seja maior que Chico.
+DELIMITER //
+	CREATE PROCEDURE altura()
+	BEGIN
+		DECLARE juca DECIMAL(10,2) DEFAULT 1.10;
+DECLARE chico DECIMAL(10,2) DEFAULT 1.50;
+DECLARE ano INT DEFAULT 0;
+WHILE(juca<chico) THEN
+	SET juca = juca +0.03;
+	SET chico = chico + 0.02;
+	SET ano= ano+1;
+END WHILE;
+SELECT ano;	
+	END //
+DELIMITER ;
