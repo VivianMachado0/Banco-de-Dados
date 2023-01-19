@@ -49,7 +49,7 @@ SET sum(t.extensão_km) = t.extensãokm
 END //
 DELIMITTER ;
 
--- d) Uma stored procedure responsável por excluir uma associação existente de uma estrada (segmento) do final de um trajeto, que automaticamente atualize o campo extensao_km do trajeto subtraindo aextensao_km da estrada.
+-- Uma stored procedure responsável por excluir uma associação existente de uma estrada (segmento) do final de um trajeto, que automaticamente atualize o campo extensao_km do trajeto subtraindo aextensao_km da estrada.
 DELIMITER //
 CREATE PROCEDURE inclusão()
 BEGIN
@@ -61,5 +61,32 @@ BEGIN
 SET sum(t.extensão_km) = t.extensãokm
 END //
 DELIMITTER ;
+
+
+--  Criar um procedimento para calcular o percentual de aumento de um valor, a função deve receber três parâmetros, o valor e o percentual de aumento e um parâmetro de saída para retornar o valor calculado.
+DELIMITER //
+CREATE PROCEDURE aumenta (a Decimal (10,2), b Decimal (10,2), OUT valor   Decimal(10,2))
+BEGIN
+	SET valor = a+b/100;
+END //
+DELIMITER ;
+CALL aumenta (10.0,10.0, @valor)
+SELECT @valor;
+
+-- Criar um procedimento que altera o valor de uma variável de entrada com base em um valor armazenado. Exemplo: Um programa recebe uma mensagem de entrada, como ‘Bom dia’, e concatena com um nome recuperado do banco de dados. O novo valor da variável deve ser acessível externamente.
+DELIMITER //
+CREATE PROCEDURE mensagem(inout texto varchar(30))
+BEGIN 
+ SELECT CONCAT(texto,”  “,altera;
+END // 
+DELIMITER ;
+SET @texto = ‘Bom dia’;
+SET @altera =’Avatar’;
+
+Call mensagem @texto,@altera;
+
+
+
+
 
 
