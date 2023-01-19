@@ -36,3 +36,87 @@ WHEN nota>59 then
 	RETURN situação;
 END //
 DELIMITER ;
+
+
+-- Crie uma function que informe o mês (VARCHAR(20)) de acordo com o número informado (IN mes INT) pelo usuário.
+--USANDO IF
+
+DELIMITER //
+CREATE FUNCTION mesIF(numero int)
+RETURNS vachar(30)
+DELIMITER ;
+	BEGIN
+		DECLARE r varchar(30);
+	IF numero = 1 THEN
+		SET r = “janeiro”;
+	ELSE IF numero = 2 THEN
+		SET r = “fevereiro”;
+ELSE IF numero = 3 THEN
+		SET r = “marco”;
+	ELSE IF numero = 4 THEN
+		SET r = “abril”;
+	ELSE IF numero = 5 THEN
+		SET r = “maio”;
+	ELSE IF numero = 6 THEN
+		SET r = “junho”;
+	ELSE IF numero = 7 THEN
+		SET r = “julho”;
+	ELSE IF numero = 8 THEN
+		SET r = “agosto”;
+	ELSE IF numero = 9 THEN
+		SET r = “setembro”;
+	ELSE IF numero = 10 THEN
+		SET r = “outubro”;
+ELSE IF numero = 11THEN
+		SET r = “novembro”;
+ELSE IF numero = 12THEN
+		SET r = “desembro”;
+	ELSE 
+		SET r = “mês não existe”;
+
+	END IF;
+	RETURN r;
+	END ;
+	DELIMITER ;
+	
+	
+	
+--USANDO CASE
+DELIMITER //
+CREATE FUNCTION mesCASE(numero int)
+RETURNS vachar(30)
+DELIMITER ;
+	BEGIN
+		DECLARE r varchar(30);
+	CASE numero
+WHEN 1 THEN
+		SET r = “janeiro”;
+	WHEN 2 THEN
+		SET r = “fevereiro”;
+WHEN 3 THEN
+		SET r = “marco”;
+	WHEN 4 THEN
+		SET r = “abril”;
+	WHEN 5 THEN
+		SET r = “maio”;
+	WHEN 6 THEN
+		SET r = “junho”;
+	WHEN 7 THEN
+		SET r = “julho”;
+	WHEN 8 THEN
+		SET r = “agosto”;
+	WHEN 9 THEN
+		SET r = “setembro”;
+	WHEN 10 THEN
+		SET r = “outubro”;
+WHEN 11THEN
+		SET r = “novembro”;
+WHEN 12THEN
+		SET r = “desembro”;
+	ELSE 
+		SET r = “mês não existe”;
+
+	END IF;
+	RETURN r;
+	END ;
+	DELIMITER ;
