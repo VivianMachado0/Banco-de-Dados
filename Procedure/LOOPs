@@ -1,0 +1,91 @@
+-- Supondo que a população de um país A seja da ordem de 80000 habitantes com uma taxa anual de crescimento de 3% e que a população de B seja 200000 habitantes com uma taxa de crescimento de 1.5%. Faça um procedimento que calcule e escreva o número de anos necessários para que a população do país A ultrapasse ou iguale a população do país B, mantidas as taxas de crescimento.
+
+DELIMITER //
+CREATE PROCEDURE taxa()
+BEGIN
+	DECLARE a INT default 80000;
+	DECLARE b INT default 20000;
+DECLARE ano INT default 0; 
+	SET a = a +a *0.03;
+	SET b= b+b* 0.015;
+	SET ano = ano+1;
+	WHILE a<=b THEN
+	SET ano = ano+1
+	END WHILE ;
+	SELECT ano;	
+END //
+DELIMITER  ;
+
+-- Faça um procedimento que peça dois números, base e expoente, calcule e mostre o primeiro número elevado ao segundo número. Não deve-se utilizar a função de potência da linguagem.
+
+
+DELIMITER //
+CREATE PROCEDURE elevar(base INT, expoente INT)
+BEGIN
+	DECLARE total INT;
+	DECLARE cont INT default 0;
+	REPEAT
+	SET total = expoente * expoente;
+	SET cont = cont +1;
+	UNTIL cont = base
+	END REPEAT;
+	SELECT total;
+END //
+DELIMITER  ;
+
+
+
+
+-- Faça um procedimento que peça um número inteiro e determine se ele é ou não um número primo. Um número primo é aquele que é divisível somente por ele mesmo e por 1.
+
+DELIMITER //
+CREATE PROCEDURE primo(num INT)
+BEGIN
+	DECLARE i INT default 0;
+	DECLARE cont INT default 0;
+	DECLARE cont2 INT default 0;
+	REPEAT
+		IF num%(i+1) = 0 THEN
+			SET cont = cont+1;
+		END IF;
+		SET cont2 = cont2 +1;
+	UNTIL cont2=num;
+	END REPEAT;
+	IF cont = 2 THEN
+		SELECT “o numero é primo”;
+	ELSE 
+		SELECT ”o numero não é primo”;
+	END IF;
+	END //
+DELIMITER  ;
+
+
+
+
+-- Altere o procedimento de cálculo dos números primos, informando, caso o número não seja primo, por quais números ele é divisível.
+
+DELIMITER //
+CREATE PROCEDURE primo2(num INT)
+BEGIN
+	DECLARE i INT default 0;
+	DECLARE cont INT default 0;
+	DECLARE cont2 INT default 0;
+	REPEAT
+		IF num%(i+1) = 0 THEN
+			SET cont = cont+1;
+		ELSE
+		SET cont
+		END IF;
+		SET cont2 = cont2 +1;
+	UNTIL cont2=num;
+	END REPEAT;
+	IF cont = 2 THEN
+		SELECT “o numero é primo”;
+	ELSE 
+		SELECT ”o numero não é primo pois é divisível por”;
+	END IF;
+	END REPEAT;
+	END //
+DELIMITER  ;
+
+
