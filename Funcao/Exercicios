@@ -1,4 +1,3 @@
-//
 
 -- Criar uma função que retorna o texto “Olá Mundo.”
 CREATE FUNCTION texto( )
@@ -11,3 +10,9 @@ CREATE FUNCTION soma(a int, b int)
 RETURNS INT
 RETURN a + b;
 SELECT soma (5,9);
+
+// Criar uma função para calcular o percentual de aumento de um valor, a função deve receber dois parâmetros, o valor e o percentual de aumento.
+CREATE FUNCTION aument (a Decimal (10,2), b Decimal (10,2))
+RETURNS DECIMAL (10,2)
+RETURNS a+a=b/100;
+SELECT aumenta(100,10)
