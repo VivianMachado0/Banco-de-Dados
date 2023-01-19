@@ -1,0 +1,38 @@
+-- Criar uma função para verificar se um aluno foi aprovado, se está em recuperação ou foi reprovado.
+-- nota > 59 (aprovado)
+-- > 29 e <= 59 (recuperação)
+-- <= 29 (reprovado)
+-- Usando IF
+DELIMITER //
+CREATE FUNCTION calculaIF(nota Decimal(10,2))
+RETURNS VARCHAR(30)
+BEGIN
+	DECLARE situação varchar(30);
+	IF nota>59 then
+		SET situação = “aprovado”;
+	ELSEIF nota>29 and nota <=59 then
+		SET situação = “recuperação”;
+	ELSE 
+		SET situação = “reprovador”;
+	END IF;
+	RETURN situação;
+END //
+DELIMITER ;
+
+-- Usando CASE
+DELIMITER //
+CREATE FUNCTION calculaIF(nota Decimal(10,2))
+RETURNS VARCHAR(30)
+BEGIN
+	DECLARE situação varchar(30);
+	CASE
+WHEN nota>59 then
+		SET situação = “aprovado”;
+	WHEN nota>29 and nota <=59 then
+		SET situação = “recuperação”;
+	ELSE 
+		SET situação = “reprovador”;
+	END CASE;
+	RETURN situação;
+END //
+DELIMITER ;
