@@ -1,0 +1,6 @@
+-- Criar um procedimento que realiza a soma de dois inteiros.
+CREATE PROCEDURE soma(a int, b int)
+SELECT a+b;
+CALL soma(5,5);
+
+
