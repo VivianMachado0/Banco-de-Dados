@@ -1,0 +1,49 @@
+-- Atualizar o campo extensao_km ao inserir um novo percurso no segmento de um trajeto.
+DELIMITER //
+CREATE TRIGGER atualiza AFTER INSERT ON segmento
+FOR EACH ROW
+BEGIN
+
+UPDATE trajeto t
+INNER JOIN (SELECT t.idtrajeto, sum(e.extensaokm) as km
+FROM trajeto t
+INNER JOIN segmento s ON t.idtrajeto = s.idtrajeto
+INNER JOIN estradas e ON s.idestrada = e.idestrada
+WHERE t.idtrajeto = NEW.idtrajeto
+GROUP BY t.idtrajeto) c ON t.idtrajeto = c.idtrajeto
+SET t.extensao_km = c.km;
+
+END //
+DELIMITER ;
+
+-- Atualizar o campo extensao_km ao remover um novo percurso no segmento de um trajeto.
+delimiter //
+create trigger atualizar_km after delete on segmento
+for each row
+begin
+ declare pare int default 0;
+declare id int;
+declare km int;
+declare curs cursor for SELECT t.idtrajeto, sum(e.extensaokm) as km
+FROM trajeto t
+INNER JOIN segmento s ON t.idtrajeto = s.idtrajeto
+INNER JOIN estradas e ON s.idestrada = e.idestrada
+GROUP BY t.idtrajeto;
+declare continue handler for not found set pare=1;
+open curs;
+
+fetch curs into id,km;
+while pare=0  do
+
+update trajeto
+set extensao_km=km
+where idtrajeto=id;
+
+fetch curs into id,km;
+end while;
+
+close curs;
+end//
+delimiter ;
+ 
+
