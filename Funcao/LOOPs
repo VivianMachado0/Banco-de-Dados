@@ -11,6 +11,27 @@ END //
 DEMILITER;
 
 
+-- Escrever uma função para imprimir o fatorial de um número.
+
+DELIMITER //
+
+CREATE FUNCTION fatorial (numero INT)
+RETURN INT
+BEGIN
+		DECLARE resultado INT default 1;
+		Fat LOOP
+			SET resultado = resultado * numero;
+			SET numero = numero -1;
+		IF numero = 0 THEN
+			Leave fat;
+		END IF;
+		END LOOP fat;
+		RETURN resultado;
+
+END //
+DELIMITER ;
+
+SELECT fatorial (5);
 
 
 -- Faça um programa que receba dois números inteiros e gere os números inteiros que estão no intervalo compreendido por eles.
